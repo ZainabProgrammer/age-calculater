@@ -1,42 +1,48 @@
 import React from "react";
 
-const Form = ({ date, setDate, setAge }) => {
+const Form = ({ dateOfBirth, setDateOfBirth, setAge }) => {
   const [errors, setErrors] = React.useState({});
 
-  function formValidation() {
+  function validateForm() {
     const date = new Date();
     let isValid = true;
     let newErrors = {};
 
-    if (date.year === "") {
+    if (dateOfBirth.year == "") {
       isValid = false;
       newErrors.year = "This field is required";
-    } else if (!/^\d+$/.test(date.year)) {
+    } else if (!/^\d+$/.test(dateOfBirth.year)) {
       isValid = false;
       newErrors.year = "Plese enter correct number";
-    } else if (parseInt(date.year) > date.getFullYear()) {
+    } else if (parseInt(dateOfBirth.year) > date.getFullYear()) {
       isValid = false;
       newErrors.year = "Must be in the past";
     }
 
-    if (date.month === "") {
+    if (dateOfBirth.month == "") {
       isValid = false;
       newErrors.month = "This field is required";
-    } else if (!/^\d+$/.test(date.month)) {
+    } else if (!/^\d+$/.test(dateOfBirth.month)) {
       isValid = false;
       newErrors.month = "Plese enter correct number";
-    } else if (parseInt(date.month) < 1 || parseInt(date.month) > 12) {
+    } else if (
+      parseInt(dateOfBirth.month) < 1 ||
+      parseInt(dateOfBirth.month) > 12
+    ) {
       isValid = false;
       newErrors.month = "Must be a valid month";
     }
 
-    if (date.day === "") {
+    if (dateOfBirth.day == "") {
       isValid = false;
       newErrors.day = "This field is required";
-    } else if (!/^\d+$/.test(date.day)) {
+    } else if (!/^\d+$/.test(dateOfBirth.day)) {
       isValid = false;
       newErrors.day = "Plese enter correct number";
-    } else if (parseInt(date.day) < 1 || parseInt(date.day) > 31) {
+    } else if (
+      parseInt(dateOfBirth.day) < 1 ||
+      parseInt(dateOfBirth.day) > 31
+    ) {
       isValid = false;
       newErrors.day = "Must be a valid day";
     }
@@ -48,9 +54,9 @@ const Form = ({ date, setDate, setAge }) => {
   function generateResultAge() {
     const date = new Date();
 
-    const year = parseInt(date.year);
-    const month = parseInt(date.month);
-    const day = parseInt(date.day);
+    const year = parseInt(dateOfBirth.year);
+    const month = parseInt(dateOfBirth.month);
+    const day = parseInt(dateOfBirth.day);
 
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth() + 1;
@@ -84,7 +90,7 @@ const Form = ({ date, setDate, setAge }) => {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setDate((prevData) => {
+    setDateOfBirth((prevData) => {
       return {
         ...prevData,
         [name]: value,
@@ -94,8 +100,8 @@ const Form = ({ date, setDate, setAge }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (formValidation()) {
-      setDate(date);
+    if (validateForm()) {
+      setDateOfBirth(dateOfBirth);
       generateResultAge();
     }
   }
@@ -124,7 +130,7 @@ const Form = ({ date, setDate, setAge }) => {
             type="text"
             maxLength={2}
             placeholder="DD"
-            value={date.day}
+            value={dateOfBirth.day}
             onChange={handleChange}
           />
           {errors.day && <span style={errorStyle}>{errors.day}</span>}
@@ -142,7 +148,7 @@ const Form = ({ date, setDate, setAge }) => {
             type="text"
             maxLength={2}
             placeholder="MM"
-            value={date.month}
+            value={dateOfBirth.month}
             onChange={handleChange}
           />
           {errors.month && <span style={errorStyle}>{errors.month}</span>}
@@ -160,13 +166,13 @@ const Form = ({ date, setDate, setAge }) => {
             type="text"
             maxLength={4}
             placeholder="YYYY"
-            value={date.year}
+            value={dateOfBirth.year}
             onChange={handleChange}
           />
           {errors.year && <span style={errorStyle}>{errors.year}</span>}
         </div>
         <button>
-          <img src="assets/images/icon.svg" alt="arrow button" />
+          <img src="assets/images/icon-arrow.svg" alt="arrow button" />
         </button>
       </form>
     </div>

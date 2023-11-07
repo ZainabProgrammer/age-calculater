@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Form from "./components/Form";
 function App() {
-  const [date, setDate] = useState({
+  const [dateOfBirth, setDateOfBirth] = useState({
     year: "",
     month: "",
     day: "",
@@ -17,7 +17,12 @@ function App() {
   return (
     <div className="container">
       <div className="card">
-        <Form date={date} setDate={setDate} setAge={setAge} />
+        <Form
+          dateOfBirth={dateOfBirth}
+          setDateOfBirth={setDateOfBirth}
+          setAge={setAge}
+        />
+
         <div className="age-result">
           <h1>
             <span>{age.year}</span> years
